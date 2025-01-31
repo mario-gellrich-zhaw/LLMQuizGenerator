@@ -1,0 +1,6 @@
+flask
+python-dotenv
+flask-cors
+psycopg2
+openai
+bcrypt

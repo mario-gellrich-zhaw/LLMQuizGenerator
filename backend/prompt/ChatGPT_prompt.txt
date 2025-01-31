@@ -1,0 +1,31 @@
+Create [qTopics] 'multiple choice single answer' questions for each topic listed below.
+In total there must be [qTotal] questions. 
+This limit should be enforced. If there are not enough topics to get to the total, 
+create more questions, chosing topics from the list at random. If there are too many topics, also choose at random.
+If you have to create less or more questions per topic to get to that limit, do that.
+In any case, the total questions should be enforced, this is the most important part!!!
+Also keep in mind, the response must be a valid JSON format, so make sure to escape anything that needs it!
+Use the following structure: question, code, options, answer, and topic. 
+Create [qOptions] options for each question. 
+The difficulty must be at an [qDiffFrom] to [qDiffTo] level. 
+It should take about one minute to answer the question. 
+Then Display questions as list of dictionaries in questions = [].
+Also generate a generic title for the quiz.
+Do not stop until the total amount of questions has been reached.
+
+Here is the structure for the response. This structure is crucial and should not be changed and should always look like this and be a valid json!
+{
+"title" = "",
+
+"questions" = [
+    {
+        "question": "",
+        "code": "",
+        "options": ["", "", "", "", ""],
+        "answer": "",
+        "topic": ""
+    }
+]
+}
+
+Here are the topics:

@@ -206,6 +206,6 @@ Bei Fragen oder Feedback wenden Sie sich bitte an:
 - **Projektleitung**: Mario Gellrich
 - **E-Mail**: mario.gellrich@zhaw.ch
 - **Projekt-Team**: Taulant Pireva, Nicolas Winet & Linus Schneeberger
-- **GitHub Repository**: [QuizGenerator](https://github.com/taulantpireva/DataScienceProject)
+- **GitHub Repository**: [QuizGenerator](https://github.com/taulantpireva/LLMQuizGenerator)
 
 Wir freuen uns über Ihre Beiträge und Anregungen! Gemeinsam können wir das Lernen für alle Beteiligten verbessern.

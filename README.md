@@ -24,49 +24,56 @@ Der Quizgenerator hilft Studierenden, ihre Kenntnisse in gewünschten Fachgebiet
 ### 🔧💡 Wichtigste Funktionen (inkl. Screenshots):
 
   <table>
-    <tr>
-      <td>
-        <details>
-          <summary>Login</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-      <td>
-        <details>
-          <summary>Neues Quiz auswählen</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <details>
-          <summary>Quiz löschen</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-      <td>
-        <details>
-          <summary>Quiz auswerten</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <details>
-          <summary>Ergebnisse überprüfen</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-      <td>
-        <details>
-          <summary>Log out</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-    </tr>
-  </table>
+  <tr>
+    <td>
+      <details>
+        <summary>Registrieren & Login</summary>
+        <img width="647" alt="startpage:logiin" src="https://github.com/user-attachments/assets/d1a2a9bd-bc18-42bf-9c20-8306d759ad74" />
+        <summary>Registrieren:</summary>
+        <img width="1002" alt="register" src="https://github.com/user-attachments/assets/83004e84-c897-498d-9b2a-f3dd61f650cc" />
+        <summary>Fehler bei Registration:</summary>
+        <img width="998" alt="fehler bei registration" src="https://github.com/user-attachments/assets/27917309-7772-4202-b92d-53bed26d1bc9" />
+        <summary>Login mit neuem Account:</summary>
+        <img width="1029" alt="neuer login" src="https://github.com/user-attachments/assets/4f6f467e-eb79-4ce5-a371-4800299fe6e5" />
+        <summary>Username & Password (mit bestehendem Account):</summary>
+        <img width="647" alt="Login" src="https://github.com/user-attachments/assets/75dab96f-7ade-470a-a59a-ea890fbdfee3" />
+        <summary>Startpage:</summary>
+        <img width="1072" alt="start dashboard" src="https://github.com/user-attachments/assets/d485be28-b667-45c7-89c1-7245da0a6c45" />
+      </details>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <details>
+        <summary>Neues Quiz auswählen & auswerten</summary>
+        <img width="913" alt="Bildschirmfoto 2025-01-31 um 17 33 30" src="https://github.com/user-attachments/assets/29578a8a-2f9f-4fa0-b2e1-cd3ab86294c1" />
+        <summary>Quizfragen ausfüllen</summary>
+        <img width="1072" alt="start quiz" src="https://github.com/user-attachments/assets/86c0bf0a-625d-4c16-8f0d-cfb157fc33b5" />
+        <summary>Quiz abschliessen</summary>
+        <img width="1072" alt="quiz abschliessen" src="https://github.com/user-attachments/assets/5a58c3af-e8f6-4019-a1a4-14292dfdf760" />
+        <summary>Auswertung des Quizzes</summary>
+        <img width="1072" alt="auswertung" src="https://github.com/user-attachments/assets/604ac840-2d25-484f-9fb7-c0f94da19c36" />
+      </details>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <details>
+        <summary>Übersicht über alle gelösten Quizzes</summary>
+        <img width="913" alt="Bildschirmfoto 2025-01-31 um 17 36 23" src="https://github.com/user-attachments/assets/a3d1655e-db58-40c0-9fc8-a93bdaff43ef" />
+      </details>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <details>
+        <summary>Log out</summary>
+        <img width="915" alt="logout" src="https://github.com/user-attachments/assets/6f4d9964-b897-4335-8766-98550ffdf957" />
+      </details>
+    </td>
+  </tr>
+</table>
+
 
 ---
 
@@ -206,6 +213,5 @@ Bei Fragen oder Feedback wenden Sie sich bitte an:
 - **Projektleitung**: Mario Gellrich
 - **E-Mail**: mario.gellrich@zhaw.ch
 - **Projekt-Team**: Taulant Pireva, Nicolas Winet & Linus Schneeberger
-- **GitHub Repository**: [QuizGenerator](https://github.com/taulantpireva/LLMQuizGenerator)
 
 Wir freuen uns über Ihre Beiträge und Anregungen! Gemeinsam können wir das Lernen für alle Beteiligten verbessern.

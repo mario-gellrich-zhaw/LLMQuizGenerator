@@ -1,1 +1,0 @@
-import{W as s}from"./index-C7jXg81h.js";const i=s("questions",{state:()=>({title:"",questions:[]}),actions:{setQuiz(t){this.title=t.title,this.questions=t.questions},clearQuiz(){this.title="",this.questions=[]},deleteQuestion(t){this.questions.splice(t,1)},reset(){this.title="",this.questions=[]}}});export{i as u};

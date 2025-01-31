@@ -12,8 +12,6 @@ router.beforeEach((to, from, next) => {
   const userStore = useUserStore();
   const loggedIn = userStore.isLoggedIn(); // Check if the user is logged in
   const role = userStore.getUser().role; // Check if the user is logged in
-  console.log(from);
-  console.log(to);
   // If the user is not logged in and trying to access any route except the login page, redirect to the login page
   if (!loggedIn && to.path == "/login") {
     next(); // Redirect to the login page

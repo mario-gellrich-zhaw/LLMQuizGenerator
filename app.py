@@ -38,7 +38,7 @@ from backend.functions.delete import delete_qz, delete_class, delete_quiz_from_c
 from backend.functions.database import initialize_database
 
 UPLOAD_FOLDER = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "upload_images"
+    os.path.dirname(os.path.abspath(__file__)), "backend/upload_images"
 )
 
 # Database connection setup
@@ -252,8 +252,6 @@ def save_picture():
         return jsonify({"error": "Missing 'question_id'"}), 400
 
     try:
-        # upload file
-        print("asdf")
         image_url = handle_file_upload(file, question_id)
         # Update the question's `image_url` in the database
 
@@ -358,6 +356,8 @@ def send_prompt():
 @app.route("/deleteImage", methods=["DELETE"])
 def delete_image_endpoint():
     try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
         # Parse the JSON payload
         data = request.get_json()
 
@@ -370,13 +370,19 @@ def delete_image_endpoint():
                 400,
             )
 
-        url = data
+        url = data["url"]
+        question_id = data.get("question_id")
 
         # Use the delete_image function from the imported module
         result = delete_image(url)
 
         # Return the result as a JSON response
         if result["status"] == "success":
+            cursor.execute(
+                "UPDATE questions SET image_url = NULL WHERE question_id = ?",
+                (question_id,)
+            )
+            conn.commit()
             return jsonify(result), 200
         else:
             return jsonify(result), 500

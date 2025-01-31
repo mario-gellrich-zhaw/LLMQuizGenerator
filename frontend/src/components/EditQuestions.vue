@@ -76,7 +76,9 @@
                 <v-btn
                   color="red-lighten-2"
                   class="w-10"
-                  @click="deleteImage(question.image_url, index)"
+                  @click="
+                    deleteImage(question.image_url, question.question_id, index)
+                  "
                   >Delete Image</v-btn
                 ></v-col
               >
@@ -130,16 +132,16 @@ const addEmptyQuestion = () => {
   });
 };
 
-const deleteImage = async (url, index) => {
+const deleteImage = async (url, question_id, index) => {
   console.log(`Deleting image at URL: ${url}`);
 
   try {
-    const response = await fetch("http://127.0.0.1:5000/deleteImage", {
+    const response = await fetch("/deleteImage", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(url),
+      body: JSON.stringify({ url, question_id }),
     });
 
     if (response.ok) {

@@ -14,7 +14,6 @@ def handle_file_upload(file, question_id):
         # Create a unique filename based on the question_id and the file extension
         file_extension = file.filename.rsplit('.', 1)[1].lower()  # Get the file extension
         filename = f"{question_id}.{file_extension}"  # Use question_id as the filename
-        print("asdfasdfasdf")
         print(UPLOAD_FOLDER)
         file_path = os.path.join(UPLOAD_FOLDER, filename)
 

@@ -190,7 +190,7 @@ INSERT INTO users (username, password, role, class_id, last_active)
 ### 🌟🚀 Starten der Anwendung
 
 ```
-docker run -p 5000:5000 llmquizgen
+docker run -p 8000:8000 llmquizgen
 ```
 
 ### 🛏️🔗 Zugriff

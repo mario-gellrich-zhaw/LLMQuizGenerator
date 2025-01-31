@@ -155,25 +155,42 @@ Der Quizgenerator hilft Studierenden, ihre Kenntnisse in gewünschten Fachgebiet
 Folgen Sie diesen Schritten, um den Quizgenerator lokal oder auf einem Server einzurichten:
 
 ### ⚡️🔋 Voraussetzungen
-
-Text
+- OpenAI API Key: Um die Applikation laufen zu lassen, wird ein API Key benötigt. https://platform.openai.com/docs/quickstart
+- Koyeb Account: Die Applikation hat bereits ein "Procfile" und wurde für Koyeb konfiguriert. https://app.koyeb.com/
+- Docker: Für lokales Deployment wird die Applikation wird in einem Docker Container bereitgestellt. https://www.docker.com/
 
 ### 🔢📝 Installation
-
+#### Repository klonen
+```bash
+git clone https://github.com/taulantpireva/LLMQuizGenerator.git
+cd LLMQuizGenerator
 ```
-Text
-```
+#### .env File erstellen
+Damit die Applikation auf ChatGPT zugreifen kann, muss ein .env File mit dem API Key vorhanden sein. Dieses File muss auf dem root directory erstellt werden.
 
+Inhalt:
+```bash
+DS_PROJECT_KEY=***replace with your key***
+```
+#### Docker Image erstellen (Docker Desktop muss gestartet sein)
+```bash
+docker build -t llmquizgen .
+```
 ### 🔐🌐 Konfiguration
+Es werden keine Konfigurationsschritte benötigt. Beim erstmaligen starten der Applikation, werden Tesdaten generiert.
+Es stehen bereits ein admin und zwei User zur verfügung.
+```sql
+INSERT INTO users (username, password, role, class_id, last_active)
+("admin", "admin", 1, None, None)
+("max", "max", 2, 2, None)
+("peter", "peter", 2, 2, None)
+```
 
-```
-Text
-```
 
 ### 🌟🚀 Starten der Anwendung
 
 ```
-Text
+docker run -p 5000:5000 llmquizgen
 ```
 
 ### 🛏️🔗 Zugriff

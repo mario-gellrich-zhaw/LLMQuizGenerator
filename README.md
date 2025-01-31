@@ -89,71 +89,95 @@ Der Quizgenerator hilft Studierenden, ihre Kenntnisse in gewünschten Fachgebiet
 ### 📈📚 Wichtigste Funktionen (inkl. Screenshots):
 
   <table>
-    <tr>
-      <td>
-        <details>
-          <summary>Login</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-          <summary>Schritt 1</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-          <summary>Schritt 2</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-      <td>
-        <details>
-          <summary>Neues Quiz erstellen</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-          <summary>Step 2:</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-          <summary>Step 3:</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <details>
-          <summary>Quizfragen manuell bearbeiten</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-      <td>
-        <details>
-          <summary>Ergebnisse der Schüler überprüfen</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <details>
-          <summary>Neue Klasse erstellen</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-      <td>
-        <details>
-          <summary>Schüler in Klassen zuteilen</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <details>
-          <summary>User als Admin hinzufügen (muss selbst bereits Admin sein)</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-      <td>
-        <details>
-          <summary>Log out</summary>
-          <img width="402" alt="Bildschirmfoto 2025-01-09 um 22 37 05" src="https://github.com/user-attachments/assets/7bece467-a81a-4680-918d-279691c2af8e" />
-        </details>
-      </td>
-    </tr>
-  </table>
+  <tr>
+    <td>
+      <details>
+        <summary>Login</summary>
+        <img width="727" alt="Bildschirmfoto 2025-01-31 um 17 00 23" src="https://github.com/user-attachments/assets/c7495188-6b41-44af-ab79-a454fd9f8e33" />
+        <summary>Startpage</summary>
+        <img width="1512" alt="Bildschirmfoto 2025-01-31 um 17 01 04" src="https://github.com/user-attachments/assets/2295ec27-2f37-4cb6-87bc-68a7a1d956f4" />
+      </details>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <details>
+        <summary>Neues Quiz erstellen</summary>
+        <img width="1512" alt="Bildschirmfoto 2025-01-31 um 17 01 04" src="https://github.com/user-attachments/assets/169310b5-13d0-4240-a204-798cf0164937" />
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <details>
+        <summary>Übersicht & Bearbeitung bestehender Quizzes</summary>
+        <img width="1433" alt="Bildschirmfoto 2025-01-31 um 17 01 19" src="https://github.com/user-attachments/assets/ff65f942-7e0f-4f5e-a48e-91be9c7f3ccc" />
+        <summary>Einzelne Fragen analysieren</summary>
+        <img width="1433" alt="Bildschirmfoto 2025-01-31 um 17 01 30" src="https://github.com/user-attachments/assets/ab76328b-0cdf-4009-bf84-6da3b0b665f4" />
+        <summary>Quiz und/oder einzelne Fragen bearbeiten</summary>
+        <img width="1205" alt="Bildschirmfoto 2025-01-31 um 17 02 11" src="https://github.com/user-attachments/assets/5997df6f-33e8-49ed-ac60-926bb284658e" />
+        <summary>Einzelne Fragen bearbeiten / Foto hinzufügen</summary>
+        <img width="1114" alt="Bildschirmfoto 2025-01-31 um 17 02 45" src="https://github.com/user-attachments/assets/3e1f61cd-80e3-49f0-a24b-e1b28402b1a1" />
+      </details>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <details>
+        <summary>Klassen erstellen und zuteilen</summary>
+        <img width="1476" alt="Bildschirmfoto 2025-01-31 um 17 03 20" src="https://github.com/user-attachments/assets/2d173762-1ea8-4675-bf15-63bb229df2a4" />
+        <summary>Klassen erstellen</summary>
+        <img width="1484" alt="Bildschirmfoto 2025-01-31 um 17 03 30" src="https://github.com/user-attachments/assets/f58dcfba-bc53-4335-a7b2-6f7f00c2613b" />
+        <summary>Quizzes und/oder Studenten zuteilen</summary>
+        <img width="1303" alt="Bildschirmfoto 2025-01-31 um 17 03 43" src="https://github.com/user-attachments/assets/db66b8c5-97ac-4d47-9e8b-a89f3e1c74af" />
+        <summary>Quizzes zuteilen</summary>
+        <img width="1121" alt="Bildschirmfoto 2025-01-31 um 17 03 57" src="https://github.com/user-attachments/assets/7a2bc26b-20e0-4133-8bef-764cd256efba" />
+        <summary>Studenten zuteilen</summary>
+        <img width="1121" alt="Bildschirmfoto 2025-01-31 um 17 04 10" src="https://github.com/user-attachments/assets/04955500-0cfb-4e39-a4aa-845d9812771d" />
+      </details>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <details>
+        <summary>Übersicht Dashboard</summary>
+        <img width="1073" alt="Bildschirmfoto 2025-01-31 um 18 19 58" src="https://github.com/user-attachments/assets/4e9c3100-4e86-4e0c-9396-59c2fb430ecc" />
+        <summary>Klasse auswählen</summary>
+        <img width="1042" alt="Bildschirmfoto 2025-01-31 um 17 05 06" src="https://github.com/user-attachments/assets/1f4e5ef1-0a89-4e32-8995-f5014c457a93" />
+        <summary>Quiz auswählen </summary>
+        <img width="1042" alt="Bildschirmfoto 2025-01-31 um 17 05 11" src="https://github.com/user-attachments/assets/0bf3772c-8298-4dd3-b6f4-26a6537aa28f" />
+        <summary>Zeitraum auswählen </summary>
+        <img width="1079" alt="Bildschirmfoto 2025-01-31 um 18 21 10" src="https://github.com/user-attachments/assets/82f9c2d9-991f-404c-883e-1200434086d6" />
+        <summary>Auswertung: </summary>
+        <img width="1079" alt="Bildschirmfoto 2025-01-31 um 18 21 25" src="https://github.com/user-attachments/assets/639fbd8e-d0ef-4f21-8879-5eb136dd4cc5" />
+      </details>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <details>
+        <summary>Adminrechte verwalten</summary>
+        <img width="1464" alt="Bildschirmfoto 2025-01-31 um 17 04 40" src="https://github.com/user-attachments/assets/6abeaa4c-ce78-43bf-834e-044c614c1843" />
+      </details>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <details>
+        <summary>Quizzes testen/selbständig lösen (siehe auch Funktionen für Studierende)</summary>
+        <img width="1028" alt="Bildschirmfoto 2025-01-31 um 17 05 48" src="https://github.com/user-attachments/assets/88f4cbbe-0559-4326-b0d9-ffb55f87dac1" />
+      </details>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <details>
+        <summary>Log out</summary>
+        <img width="327" alt="Bildschirmfoto 2025-01-31 um 18 15 20" src="https://github.com/user-attachments/assets/e9d01feb-fa84-4564-b8b2-21c0d8b10de2" />
+      </details>
+    </td>
+  </tr>
+</table>
+
 
 ---
 
@@ -166,23 +190,34 @@ Folgen Sie diesen Schritten, um den Quizgenerator lokal oder auf einem Server ei
 - Koyeb Account: Die Applikation hat bereits ein "Procfile" und wurde für Koyeb konfiguriert. https://app.koyeb.com/
 - Docker: Für lokales Deployment wird die Applikation wird in einem Docker Container bereitgestellt. https://www.docker.com/
 
-### 🔢📝 Installation
-#### Repository klonen
+### 🔢📝 Installation & Start der Anwendung (4 Schritte)
+#### 1) Repository klonen
 ```bash
 git clone https://github.com/taulantpireva/LLMQuizGenerator.git
 cd LLMQuizGenerator
 ```
-#### .env File erstellen
+#### 2) .env File erstellen
 Damit die Applikation auf ChatGPT zugreifen kann, muss ein .env File mit dem API Key vorhanden sein. Dieses File muss auf dem root directory erstellt werden.
 
 Inhalt:
 ```bash
 DS_PROJECT_KEY=***replace with your key***
 ```
-#### Docker Image erstellen (Docker Desktop muss gestartet sein)
+  <details>
+          <summary>Beispiel:</summary>
+          <img width="842" alt="env erstellen" src="https://github.com/user-attachments/assets/614d3f64-d04f-4e6e-80a6-42a69ef48cee" />
+  </details>
+
+#### 3) Docker Image erstellen (Docker Desktop muss gestartet sein)
 ```bash
 docker build -t llmquizgen .
 ```
+#### 4) Starten der Anwendung
+
+```
+docker run -p 8000:8000 llmquizgen
+```
+
 ### 🔐🌐 Konfiguration
 Es werden keine Konfigurationsschritte benötigt. Beim erstmaligen starten der Applikation, werden Tesdaten generiert.
 Es stehen bereits ein admin und zwei User zur verfügung.
@@ -192,18 +227,6 @@ INSERT INTO users (username, password, role, class_id, last_active)
 ("max", "max", 2, 2, None)
 ("peter", "peter", 2, 2, None)
 ```
-
-
-### 🌟🚀 Starten der Anwendung
-
-```
-docker run -p 8000:8000 llmquizgen
-```
-
-### 🛏️🔗 Zugriff
-
-TEXT
-
 ---
 
 ## 4. Kontakt

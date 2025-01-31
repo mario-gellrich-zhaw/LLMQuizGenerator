@@ -9,7 +9,7 @@ Der **LLM-basierte Quizgenerator** ist eine innovative Lösung für Lehrpersonen
 1. [🔧💡 Funktionen für Studierende](#1-funktionen-für-studierende)
 2. [📈📚 Funktionen für Lehrpersonen](#2-funktionen-für-lehrpersonen)
 3. [⚙️🏠 Set-Up](#3-set-up)
-4. [⚙️🏠 Technische Umsetzung](#4-technische-umsetzung)
+4. [🔍🛠 Technische Umsetzung](#4-technische-umsetzung)
 5. [📢💬 Kontakt](#5-kontakt)
 
 ---

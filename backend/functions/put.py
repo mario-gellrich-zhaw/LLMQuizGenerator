@@ -3,10 +3,8 @@ from flask import jsonify
 
 def update_entire_quiz(quiz_id, conn, cursor, title, questions):
     try:
-        # Start a transaction to ensure data consistency
         conn.begin()
 
-        # Update the quiz title in the database
         cursor.execute(
             """
             UPDATE quizzes
@@ -16,16 +14,13 @@ def update_entire_quiz(quiz_id, conn, cursor, title, questions):
             (title, quiz_id),
         )
 
-        # Get the existing question IDs for the quiz
         cursor.execute(
             """SELECT question_id FROM questions WHERE quiz_id = ?;""", (quiz_id,)
         )
         existing_questions = {row[0] for row in cursor.fetchall()}
 
-        # Collect the question IDs from the incoming data
         incoming_question_ids = []
 
-        # Process each question in the request
         for question_data in questions:
             if not all(k in question_data for k in ["question", "answer", "topic"]):
                 return (
@@ -39,7 +34,7 @@ def update_entire_quiz(quiz_id, conn, cursor, title, questions):
 
             question = question_data["question"]
             code = question_data.get("code", None)
-            image_url = question_data.get("image_url", None)  # Optional image URL
+            image_url = question_data.get("image_url", None) 
             answer = question_data["answer"]
             topic = question_data["topic"]
             question_id = question_data.get("question_id", None)
@@ -63,7 +58,6 @@ def update_entire_quiz(quiz_id, conn, cursor, title, questions):
                 question_id = cursor.lastrowid  # Retrieve the inserted question ID
                 incoming_question_ids.append(question_id)
 
-            # Insert or update the options for this question
             options = question_data.get("options", [])
 
             # First, delete the existing options for this question
@@ -73,8 +67,8 @@ def update_entire_quiz(quiz_id, conn, cursor, title, questions):
 
             # Now insert the new options
             for option in options:
-                option_text = option.get("option")  # Extract the option text
-                option_id = option.get("option_id")  # Extract the option ID (if available)
+                option_text = option.get("option") 
+                option_id = option.get("option_id")  
 
                 if option_id:
                     cursor.execute(
@@ -83,7 +77,7 @@ def update_entire_quiz(quiz_id, conn, cursor, title, questions):
                         (question_id, option_text, option_id),
                     )
                 else:
-                    if option_text:  # Ensure the option_text is not None or empty
+                    if option_text: 
                         cursor.execute(
                             """INSERT INTO options (question_id, option_text)
                                VALUES (?, ?);""",
@@ -101,13 +95,11 @@ def update_entire_quiz(quiz_id, conn, cursor, title, questions):
                 """DELETE FROM options WHERE question_id = ?;""", (question_id,)
             )
 
-        # Commit the transaction
         conn.commit()
 
         return jsonify({"message": "Quiz updated successfully"}), 200
 
     except Exception as e:
-        # If any error occurs, roll back the transaction
         conn.rollback()
         print(f"Error updating quiz: {e}")
         return jsonify({"error": "An error occurred while updating the quiz."}), 500
@@ -115,7 +107,7 @@ def update_entire_quiz(quiz_id, conn, cursor, title, questions):
 
 
 def update_published_status(cursor, conn, quiz_id, data):
-    # Update the quiz's published status
+    # Update the quiz's published status, 0 = false, 1 = true
     cursor.execute(
         """
         UPDATE quizzes
@@ -125,7 +117,6 @@ def update_published_status(cursor, conn, quiz_id, data):
         (data["published"], quiz_id),
     )
 
-    # Fetch the updated row to check if the quiz exists and was updated
     cursor.execute(
         """
         SELECT * FROM quizzes WHERE quiz_id = ?;
@@ -137,27 +128,21 @@ def update_published_status(cursor, conn, quiz_id, data):
     if updated_row is None:
         return None  # Returning None if quiz is not found or no update is made
 
-    # Commit the changes
     conn.commit()
 
     # Map the updated row to a dictionary for returning to the frontend
     updated_quiz = {
         "quiz_id": updated_row[0],
         "title": updated_row[1],
-        "published": updated_row[2],  # Assuming 'published' is the 3rd column
-        # Add other fields here as needed, depending on the schema of the quizzes table
+        "published": updated_row[2], 
     }
 
-    # Close the cursor and connection
     cursor.close()
     conn.close()
 
-    return updated_quiz  # Return the updated quiz data as a dictionary
-
-
+    return updated_quiz 
 
 def update_user_class(conn, cursor, class_id, user_id):
-    # SQL query to update the user's class_id
     query = """
         UPDATE users
         SET class_id = ?
@@ -170,7 +155,6 @@ def update_user_class(conn, cursor, class_id, user_id):
     if cursor.rowcount == 0:
         return jsonify({"error": "User not found"}), 404
 
-    # Close the connection
     cursor.close()
     conn.close()
     return (
@@ -180,7 +164,6 @@ def update_user_class(conn, cursor, class_id, user_id):
 
 
 def update_user(conn, cursor, new_role, user_id):
-    # Update the role in the database
     cursor.execute(
         """
             UPDATE users
@@ -191,9 +174,7 @@ def update_user(conn, cursor, new_role, user_id):
     )
     conn.commit()
 
-    # Close the connection
     cursor.close()
     conn.close()
 
-    # Return a success message
     return jsonify({"message": "User role updated successfully"}), 200

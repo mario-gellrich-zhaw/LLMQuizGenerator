@@ -2,26 +2,22 @@ from flask import jsonify
 
 
 def save_quiz(conn, cursor, title, questions):
-    # Insert the new quiz title into the quizzes table
     cursor.execute("INSERT INTO quizzes (title) VALUES (?)", (title,))
-    quiz_id = cursor.lastrowid  # Get the quiz_id of the inserted quiz
+    # Get the quiz_id of the inserted quiz, needed in frontend later
+    quiz_id = cursor.lastrowid  
 
-    # Prepare a list to store the inserted questions
     inserted_questions = []
 
-    # Insert each question into the questions table
     for question_data in questions:
-        # Validate each question
         if not all(k in question_data for k in ["question", "answer", "topic"]):
             raise ValueError("Invalid question format. Each question must have 'question', 'answer', and 'topic'.")
 
         question = question_data["question"]
         code = question_data.get("code", None)
-        image_url = question_data.get("image_url", None)  # Optional image URL
+        image_url = question_data.get("image_url", None) 
         answer = question_data["answer"]
         topic = question_data["topic"]
 
-        # Insert the question into the questions table, linking to the quiz
         cursor.execute(
             """
             INSERT INTO questions (quiz_id, question, code, image_url, answer, topic)
@@ -29,9 +25,8 @@ def save_quiz(conn, cursor, title, questions):
             """,
             (quiz_id, question, code, image_url, answer, topic),
         )
-        question_id = cursor.lastrowid  # Get the question_id of the inserted question
+        question_id = cursor.lastrowid  # Get the question_id of the inserted question, needed in frontend
 
-        # Insert each option into the options table, linking to the question
         options = question_data.get("options", [])
         inserted_options = []
         for option_text in options:
@@ -44,7 +39,6 @@ def save_quiz(conn, cursor, title, questions):
             )
             inserted_options.append(option_text)
 
-        # Append the inserted question to the list
         inserted_questions.append(
             {
                 "question_id": question_id,
@@ -57,7 +51,6 @@ def save_quiz(conn, cursor, title, questions):
             }
         )
 
-    # Commit the transaction
     conn.commit()
 
     # Construct the full quiz object
@@ -68,7 +61,6 @@ def save_quiz(conn, cursor, title, questions):
 
 def add_one_class(class_name, conn, cursor):
     try:
-        # Insert the new class into the database
         cursor.execute(
             """
             INSERT INTO classes (class_name)
@@ -77,20 +69,17 @@ def add_one_class(class_name, conn, cursor):
             (class_name,),
         )
 
-        # Fetch the last inserted class_id (SQLite's lastrowid)
         class_id = cursor.lastrowid
 
-        # Commit the transaction
         conn.commit()
 
-        # Close the cursor and connection
         cursor.close()
         conn.close()
 
         if class_id:
             class_data = {
-                "class_id": class_id,  # id
-                "class_name": class_name,  # class_name
+                "class_id": class_id,  
+                "class_name": class_name, 
                 "users": [],
                 "quizzes": [],
             }
@@ -104,7 +93,6 @@ def add_one_class(class_name, conn, cursor):
 
 def add_quiz_to_class_by_class_id(cursor, class_id, quiz_id):
     try:
-        # Insert the quiz into the class_quizzes table
         cursor.execute(
             """
             INSERT INTO class_quizzes (class_id, quiz_id)
@@ -115,7 +103,6 @@ def add_quiz_to_class_by_class_id(cursor, class_id, quiz_id):
         )
         cursor.connection.commit()
 
-        # Check if the insertion was successful
         return cursor.rowcount > 0
 
     except Exception as e:

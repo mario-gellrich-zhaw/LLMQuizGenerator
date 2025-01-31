@@ -76,51 +76,39 @@ PROMPT_FILE = "backend/prompt/ChatGPT_prompt.txt"
 @app.route("/getAllQuizzes", methods=["GET"])
 def get_all_quizzes():
     try:
-        # Connect to your PostgreSQL database
         conn = get_db_connection()
 
-        # Create a cursor object to interact with the database
         cursor = conn.cursor()
         quizzes = return_all_quizzes(conn, cursor)
 
-        # Return the structured data as JSON
         return jsonify(quizzes)
 
     except Exception as e:
-        # If there's an error, return the error message in the response
         return jsonify({"error": str(e)}), 500
 
 
 @app.route("/getAllQuizzesForRun", methods=["GET"])
 def get_all_quizzes_for_run():
     try:
-        # Extract the class_id from the query parameters
         class_id = request.args.get("class_id")
 
         if not class_id:
             return jsonify({"error": "Class ID is required"}), 400
 
-        # Connect to your PostgreSQL database
         conn = get_db_connection()
-
-        # Create a cursor object to interact with the database
         cursor = conn.cursor()
 
         # Get quizzes filtered by class_id
         quizzes = return_all_quizzes_for_run(conn, cursor, class_id)
-
-        # Return the structured data as JSON
         return jsonify(quizzes)
 
     except Exception as e:
-        # If there's an error, return the error message in the response
         return jsonify({"error": str(e)}), 500
 
 
 @app.route("/saveQuestions", methods=["POST"])
 def save_questions():
     try:
-        # Get the new quiz data from the request body
         quiz_data = request.get_json()
 
         # Validate the structure of the incoming quiz data
@@ -138,15 +126,12 @@ def save_questions():
                 400,
             )
 
-        # Extract the title and questions
         title = quiz_data["title"]
         questions = quiz_data["questions"]
 
-        # Open a database connection
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Start a transaction to insert the quiz and questions
         try:
             full_quiz = save_quiz(conn, cursor, title, questions)
             return (
@@ -154,7 +139,6 @@ def save_questions():
                 200,
             )
         except Exception as e:
-            # Rollback any changes if an error occurs
             conn.rollback()
             return jsonify({"error": str(e)}), 500
         finally:
@@ -167,20 +151,17 @@ def save_questions():
 @app.route("/updateQuizStatus/<int:quiz_id>", methods=["PUT"])
 def update_quiz_status(quiz_id):
     try:
-        # Get the new data from the request body
         data = request.get_json()
 
         # Validate that the published field is present in the request
         if "published" not in data:
             return jsonify({"error": "Missing 'published' field in request body"}), 400
 
-        # Connect to the database
         conn = get_db_connection()
         cursor = conn.cursor()
 
         updated_row = update_published_status(cursor, conn, quiz_id, data)
 
-        # Respond with success
         return (
             jsonify(
                 {
@@ -192,7 +173,6 @@ def update_quiz_status(quiz_id):
         )
 
     except Exception as e:
-        # Log the error to check for any exceptions
         print(f"Error: {e}")
         return jsonify({"error": str(e)}), 500
 
@@ -200,7 +180,6 @@ def update_quiz_status(quiz_id):
 @app.route("/updateQuiz/<int:quiz_id>", methods=["PUT"])
 def update_quiz(quiz_id):
     try:
-        # Parse the request JSON
         data = request.get_json()
 
         # Validate the structure of the incoming data
@@ -214,32 +193,27 @@ def update_quiz(quiz_id):
                 400,
             )
 
-        # Extract the title and questions from the request
         title = data["title"]
         questions = data["questions"]
-        # Open a database connection
+
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Start a transaction
+
         try:
             update_entire_quiz(quiz_id, conn, cursor, title, questions)
 
         except Exception as e:
-            # Roll back the transaction in case of an error
             conn.rollback()
             return jsonify({"error": str(e)}), 500
 
         finally:
-            # Close the cursor and connection
             cursor.close()
             conn.close()
 
-        # Respond with success
         return jsonify({"message": "Quiz updated successfully"}), 200
 
     except Exception as e:
-        # Handle any unexpected errors
         return jsonify({"error": str(e)}), 500
 
 
@@ -253,7 +227,6 @@ def save_picture():
 
     try:
         image_url = handle_file_upload(file, question_id)
-        # Update the question's `image_url` in the database
 
         with get_db_connection() as conn:
             update_question_image_url(conn, question_id, image_url)
@@ -275,39 +248,29 @@ def save_picture():
 
 @app.route("/upload_images/<filename>", methods=["GET"])
 def serve_image(filename):
-    """
-    Serve an image file from the upload_images directory.
-    """
     try:
-        # Use send_from_directory to serve the image securely
         return send_from_directory(UPLOAD_FOLDER, filename)
     except FileNotFoundError:
-        # Return a 404 error if the file is not found
         abort(404, description="Image not found")
 
 
 @app.route("/deleteQuiz/<int:quiz_id>", methods=["DELETE"])
 def delete_quiz(quiz_id):
     try:
-        # Connect to the database
         conn = get_db_connection()
         cursor = conn.cursor()
         delete_qz(cursor, quiz_id, conn)
 
-        # Respond with success message
         return jsonify({"message": "Quiz deleted successfully"}), 200
 
     except Exception as e:
-        # Log and return any error encountered
         return jsonify({"error": str(e)}), 500
 
 
 @app.route("/sendPrompt", methods=["POST"])
 def send_prompt():
-    # Get the JSON data from the request
     data = request.get_json()
 
-    # Extract values from the frontend data
     q_topics = data.get("qTopics")
     total_questions = data.get("totalQuestions")
     options = data.get("options")
@@ -331,7 +294,7 @@ def send_prompt():
         topics_text = "\n".join([f"- {topic}" for topic in topics])  # Format topics
         prompt = prompt.replace(
             "Here are the topics:", f"Here are the topics:\n{topics_text}"
-        )  # Append topics
+        )
 
         response = OpenAI(
             api_key=(OPENAI_API_KEY),  # This is the default and can be omitted
@@ -358,7 +321,6 @@ def delete_image_endpoint():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        # Parse the JSON payload
         data = request.get_json()
 
         # Validate the presence of the 'url' key
@@ -373,10 +335,8 @@ def delete_image_endpoint():
         url = data["url"]
         question_id = data.get("question_id")
 
-        # Use the delete_image function from the imported module
         result = delete_image(url)
 
-        # Return the result as a JSON response
         if result["status"] == "success":
             cursor.execute(
                 "UPDATE questions SET image_url = NULL WHERE question_id = ?",
@@ -398,30 +358,23 @@ def delete_image_endpoint():
             500,
         )
 
-
-# Route to register a new user
 @app.route("/register", methods=["POST"])
 def register():
     data = request.get_json()
 
-    # Extract data from the request
     username = data.get("username")
     password = data.get("password")
-    role = data.get("role", 2)  # Default role to 2 if not provided
+    role = data.get("role", 2)  # Default role to 2 (Student)
 
-    # Validate input
     if not username or not password:
         return jsonify({"error": "Username and password are required"}), 400
 
-    # Hash the password
     hashed_password = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
     try:
-        # Establish database connection
         conn = get_db_connection()
         cur = conn.cursor()
 
-        # Insert the new user into the database
         cur.execute(
             """
             INSERT INTO users (username, password, role, class_id, last_active)
@@ -430,11 +383,10 @@ def register():
             (username, hashed_password.decode("utf-8"), role),
         )
 
-        # Get the id of the inserted user
+        # Get the id of the inserted user, needed for frontend api calls
         cur.execute("SELECT id, username, role, class_id, last_active FROM users WHERE username = ?", (username,))
         new_user = cur.fetchone()
 
-        # Commit the transaction and close the connection
         conn.commit()
         cur.close()
         conn.close()
@@ -442,8 +394,8 @@ def register():
         if new_user:
             user = {
                 "id":new_user[0],
-                "username": new_user[1],  # username
-                "role": new_user[2],  # role
+                "username": new_user[1],  
+                "role": new_user[2], 
                 "class_id":new_user[3],
                 "last_active":None,
             }
@@ -463,20 +415,16 @@ def register():
 def login():
     data = request.get_json()
 
-    # Extract username and password from the request
     username = data.get("username")
     password = data.get("password")
 
-    # Validate input
     if not username or not password:
         return jsonify({"error": "Username and password are required"}), 400
 
     try:
-        # Establish database connection
         conn = get_db_connection()
         cur = conn.cursor()
 
-        # Fetch the user details from the database
         cur.execute(
             """
             SELECT id, username, password, role, class_id, last_active
@@ -487,14 +435,12 @@ def login():
         )
         user_row = cur.fetchone()
 
-        # Close the cursor and connection
         cur.close()
         conn.close()
 
         if not user_row:
             return jsonify({"error": "Invalid username or password"}), 401
 
-        # Extract user data
         user_id, db_username, db_password, role, class_id, last_active = user_row
 
         # Verify the password
@@ -543,18 +489,14 @@ def update_last_active(user_id):
 @app.route("/getAllClasses", methods=["GET"])
 def get_all_classes():
     try:
-        # Connect to your PostgreSQL database
         conn = get_db_connection()
 
-        # Create a cursor object to interact with the database
         cursor = conn.cursor()
         classes = return_all_classes(conn, cursor)
 
-        # Return the structured data as JSON
         return jsonify(classes)
 
     except Exception as e:
-        # If there's an error, return the error message in the response
         return jsonify({"error": str(e)}), 500
 
 
@@ -562,15 +504,12 @@ def get_all_classes():
 def add_class():
     data = request.get_json()
 
-    # Extract class name from the request
     class_name = data.get("class_name")
 
-    # Validate input
     if not class_name:
         return jsonify({"error": "Class name is required"}), 400
 
     try:
-        # Establish database connection
         conn = get_db_connection()
         cursor = conn.cursor()
         new_class = add_one_class(class_name, conn, cursor)
@@ -586,16 +525,13 @@ def add_class():
 def get_all_users_for_class():
     class_id = request.args.get("class_id")
 
-    # Validate input
     if not class_id:
         return jsonify({"error": "Class ID is required"}), 400
 
     try:
-        # Establish database connection
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Call the function to fetch users
         return get_users_not_in_class(class_id, conn, cursor)
     except Exception as e:
         print(f"Error: {e}")
@@ -605,11 +541,9 @@ def get_all_users_for_class():
 @app.route("/get_all_users", methods=["GET"])
 def get_all_users():
     try:
-        # Establish database connection
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Call the function to fetch users
         return get_users(cursor)
     except Exception as e:
         print(f"Error: {e}")
@@ -622,12 +556,11 @@ def add_user_to_class():
 
     user_id = data.get("user_id")
     class_id = data.get("class_id")
-    # Validate input
+
     if not user_id:
         return jsonify({"error": "User ID is required"}), 400
 
     try:
-        # Establish database connection
         conn = get_db_connection()
         cursor = conn.cursor()
 
@@ -647,22 +580,18 @@ def add_user_to_class():
 @app.route("/deleteClass", methods=["DELETE"])
 def delete_class_endpoint():
     try:
-        # Extract class_id from the request body
         data = request.get_json()
         class_id = data.get("class_id")
 
         if not class_id:
             return jsonify({"error": "class_id is required"}), 400
 
-        # Connect to the database
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Call a function to delete the class (you can define this function based on your DB logic)
         return delete_class(cursor, class_id, conn)
 
     except Exception as e:
-        # Log and return any error encountered
         print(f"Error deleting class: {e}")
         return jsonify({"error": str(e)}), 500
 
@@ -670,26 +599,22 @@ def delete_class_endpoint():
 @app.route("/update_user_role", methods=["PUT"])
 def update_user_role():
     try:
-        # Get data from the request
         data = request.get_json()
         user_id = data["user_id"]
         new_role = data["role"]
 
-        # Connect to the database
         conn = get_db_connection()
         cursor = conn.cursor()
 
         return update_user(conn, cursor, new_role, user_id)
 
     except Exception as e:
-        # Return an error if something goes wrong
         return jsonify({"error": str(e)}), 500
 
 
 @app.route("/deleteQuizFromClass", methods=["DELETE"])
 def delete_quiz_from_class_endpoint():
     try:
-        # Extract class_id and quiz_id from the request body
         data = request.get_json()
         class_id = data.get("class_id")
         quiz_id = data.get("quiz_id")
@@ -697,15 +622,12 @@ def delete_quiz_from_class_endpoint():
         if not class_id or not quiz_id:
             return jsonify({"error": "class_id and quiz_id are required"}), 400
 
-        # Connect to the database
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Call the function to delete the entry in class_quizzes table
         return delete_quiz_from_class(cursor, class_id, quiz_id, conn)
 
     except Exception as e:
-        # Log and return any error encountered
         print(f"Error deleting quiz from class: {e}")
         return jsonify({"error": str(e)}), 500
 
@@ -713,17 +635,14 @@ def delete_quiz_from_class_endpoint():
 @app.route("/get_all_quizzes_for_class", methods=["GET"])
 def get_quizzes_not_in_class():
     try:
-        # Extract class_id from the query parameters (which should be in the URL)
         class_id = request.args.get("class_id", type=int)
 
         if not class_id:
             return jsonify({"error": "class_id is required"}), 400
 
-        # Connect to the database
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Call the function to fetch quizzes not in the class
         return get_quizzes_not_in_class_by_class_id(cursor, class_id)
 
     except Exception as e:
@@ -734,7 +653,6 @@ def get_quizzes_not_in_class():
 @app.route("/add_quiz_to_class", methods=["POST"])
 def add_quiz_to_class():
     try:
-        # Extract class_id and quiz_id from the request JSON body
         request_data = request.get_json()
         class_id = request_data.get("class_id")
         quiz_id = request_data.get("quiz_id")
@@ -742,14 +660,11 @@ def add_quiz_to_class():
         if not class_id or not quiz_id:
             return jsonify({"error": "class_id and quiz_id are required"}), 400
 
-        # Connect to the database
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Call the function to insert the quiz into the class
         result = add_quiz_to_class_by_class_id(cursor, class_id, quiz_id)
 
-        # If insertion is successful, send a success message
         if result:
             return jsonify(
                 {
@@ -769,7 +684,6 @@ def add_quiz_to_class():
 @app.route("/validate_quiz", methods=["POST"])
 def validate_quiz():
     try:
-        # Get JSON data from the request
         data = request.get_json()
         quiz_id = data.get("quiz_id")
         user_id = data.get("user_id")
@@ -795,13 +709,11 @@ def validate_quiz():
             cursor, quiz_id, user_id, class_id, result["correct_answers"]
         )
 
-        # save details
+        # save details of the run
         save_quiz_run_details(cursor, run_id, quiz_id, user_id, result["Answers"])
 
-        # Commit the transaction
         conn.commit()
 
-        # Respond with the result
         return jsonify(result)
 
     except Exception as e:
@@ -816,13 +728,10 @@ def validate_quiz():
 @app.route("/get_quiz_history/<int:user_id>", methods=["GET"])
 def get_quiz_history(user_id):
     try:
-        # Connect to the database
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Convert the history dictionary into a list
         result = get_history(cursor, user_id)
-        # result = list(history.values())
 
         return jsonify(result)
 
@@ -834,7 +743,6 @@ def get_quiz_history(user_id):
 @app.route("/get_results", methods=["GET"])
 def get_results():
     try:
-        # Get query parameters from the request
         from_date = request.args.get("from")
         to_date = request.args.get("to")
         class_id = request.args.get("class")
@@ -843,14 +751,12 @@ def get_results():
         if not (from_date and to_date and class_id and quiz_id):
             return jsonify({"error": "Missing required parameters"}), 400
 
-        # Connect to the database
         conn = get_db_connection()
         cursor = conn.cursor()
 
         results = get_quiz_results(cursor, from_date, to_date, class_id, quiz_id)
         print(results)
         return results
-        # return jsonify(results)
 
     except Exception as e:
         print(f"Error fetching quiz history: {e}")
@@ -860,13 +766,10 @@ def get_results():
 @app.route("/get_results_base", methods=["GET"])
 def get_results_base():
     try:
-        # Connect to the database
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Convert the history dictionary into a list
         result = get_quiz_results_base(cursor)
-        # result = list(history.values())
 
         return jsonify(result)
 

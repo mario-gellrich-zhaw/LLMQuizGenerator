@@ -5,7 +5,6 @@ from datetime import datetime
 
 def return_all_quizzes(conn, cursor):
     try:
-        # Query to get all quizzes with questions, options, and the published status
         cursor.execute(
             """
             SELECT q.quiz_id, q.title, q.published, que.question_id, que.question, que.answer, que.topic, que.image_url,que.code,
@@ -16,13 +15,10 @@ def return_all_quizzes(conn, cursor):
         """
         )
 
-        # Fetch all results
         rows = cursor.fetchall()
 
-        # Process the results into a structured JSON format
         quizzes = []
         for row in rows:
-            # Find the quiz by ID
             quiz = next(
                 (quiz for quiz in quizzes if quiz["quiz_id"] == row["quiz_id"]), None
             )
@@ -30,12 +26,11 @@ def return_all_quizzes(conn, cursor):
                 quiz = {
                     "quiz_id": row["quiz_id"],
                     "title": row["title"],
-                    "published": row["published"],  # Include published field
+                    "published": row["published"],
                     "questions": [],
                 }
                 quizzes.append(quiz)
 
-            # Find or create the question
             question = next(
                 (
                     q
@@ -56,7 +51,6 @@ def return_all_quizzes(conn, cursor):
                 }
                 quiz["questions"].append(question)
 
-            # Add the option to the question
             if row["option_text"]:
                 option = {"option_id": row["option_id"], "option": row["option_text"]}
                 question["options"].append(option)
@@ -65,24 +59,20 @@ def return_all_quizzes(conn, cursor):
             if question["image_url"]:
                 image_path = os.path.join("uploaded_images", question["image_url"])
                 if os.path.exists(image_path):
-                    # Optionally, add the full path or URL to the image if it exists
                     question["image_url"] = f"/uploaded_images/{question['image_url']}"
 
-        # Close the cursor and connection
         cursor.close()
         conn.close()
 
-        # Return the structured data as JSON
         return quizzes
 
     except Exception as e:
-        # If there's an error, return the error message in the response 13,37
         return e
 
 
 def return_all_quizzes_for_run(conn, cursor, class_id):
     try:
-        # Query to get all quizzes assigned to the class, along with their details
+        # return all quizzes for running, published status must be 1
         cursor.execute(
             """
             SELECT q.quiz_id, q.title, q.published, que.question_id, que.question, que.topic, que.image_url, que.code,
@@ -97,13 +87,10 @@ def return_all_quizzes_for_run(conn, cursor, class_id):
             (class_id,),
         )
 
-        # Fetch all results
         rows = cursor.fetchall()
 
-        # Process the results into a structured JSON format
         quizzes = []
         for row in rows:
-            # Find the quiz by ID
             quiz = next(
                 (quiz for quiz in quizzes if quiz["quiz_id"] == row["quiz_id"]), None
             )
@@ -111,12 +98,11 @@ def return_all_quizzes_for_run(conn, cursor, class_id):
                 quiz = {
                     "quiz_id": row["quiz_id"],
                     "title": row["title"],
-                    "published": row["published"],  # Include published field
+                    "published": row["published"],
                     "questions": [],
                 }
                 quizzes.append(quiz)
 
-            # Find or create the question
             question = next(
                 (
                     q
@@ -136,33 +122,26 @@ def return_all_quizzes_for_run(conn, cursor, class_id):
                 }
                 quiz["questions"].append(question)
 
-            # Add the option to the question
             if row["option_text"]:
                 option = {"option_id": row["option_id"], "option": row["option_text"]}
                 question["options"].append(option)
 
-            # If image_url is not empty, check if the image exists
             if question["image_url"]:
                 image_path = os.path.join("uploaded_images", question["image_url"])
                 if os.path.exists(image_path):
-                    # Optionally, add the full path or URL to the image if it exists
                     question["image_url"] = f"/uploaded_images/{question['image_url']}"
 
-        # Close the cursor and connection
         cursor.close()
         conn.close()
 
-        # Return the structured data as JSON
         return quizzes
 
     except Exception as e:
-        # If there's an error, return the error message in the response
         return e
 
 
 def return_all_classes(conn, cursor):
     try:
-        # Query to get all classes, their users, and their quizzes
         cursor.execute(
             """
             SELECT 
@@ -180,15 +159,12 @@ def return_all_classes(conn, cursor):
         )
         rows = cursor.fetchall()
 
-        # Process the class data into a structured JSON format
         classes = []
         for row in rows:
-            # Find the class in the list
             class_item = next(
                 (c for c in classes if c["class_id"] == row["class_id"]), None
             )
             if not class_item:
-                # If the class is not already in the list, add it
                 class_item = {
                     "class_id": row["class_id"],
                     "class_name": row["class_name"],
@@ -197,7 +173,6 @@ def return_all_classes(conn, cursor):
                 }
                 classes.append(class_item)
 
-            # Add the user to the class's user list
             if row["user_id"]:
                 user = {
                     "user_id": row["user_id"],
@@ -206,7 +181,6 @@ def return_all_classes(conn, cursor):
                 if user not in class_item["users"]:
                     class_item["users"].append(user)
 
-            # Add the quiz to the class's quiz list
             if row["quiz_id"]:
                 quiz = {
                     "quiz_id": row["quiz_id"],
@@ -215,21 +189,18 @@ def return_all_classes(conn, cursor):
                 if quiz not in class_item["quizzes"]:
                     class_item["quizzes"].append(quiz)
 
-        # Close the cursor and connection
         cursor.close()
         conn.close()
 
-        # Return the structured data
         return classes
 
     except Exception as e:
-        # If there's an error, return the error message in the response
         return {"error": str(e)}
 
 
 def get_users_not_in_class(class_id, conn, cursor):
     try:
-        # SQL query to fetch users not associated with the given class ID
+        # get users that don't belong to the class
         query = """
         SELECT u.id, u.username
         FROM users u
@@ -239,14 +210,12 @@ def get_users_not_in_class(class_id, conn, cursor):
         cursor.execute(query, (class_id,))
         users = cursor.fetchall()
 
-        # If no users are found, return a message indicating that
         if not users:
             return (
                 jsonify({"message": "No users found that are not in the class."}),
                 200,
             )
 
-        # Format the result as a list of dictionaries with only id and username
         users_list = [{"id": user[0], "username": user[1]} for user in users]
 
         return jsonify({"users": users_list}), 200
@@ -257,7 +226,6 @@ def get_users_not_in_class(class_id, conn, cursor):
 
 def get_users(cursor):
     try:
-        # SQL query to fetch users not associated with the given class ID
         query = """
         SELECT u.id, u.username, u.role
         FROM users u;
@@ -266,14 +234,12 @@ def get_users(cursor):
         cursor.execute(query)
         users = cursor.fetchall()
 
-        # If no users are found, return a message indicating that
         if not users:
             return (
                 jsonify({"message": "No users found"}),
                 200,
             )
 
-        # Format the result as a list of dictionaries with only id and username
         users_list = [
             {"id": user[0], "username": user[1], "role": user[2]} for user in users
         ]
@@ -285,7 +251,6 @@ def get_users(cursor):
 
 
 def get_quizzes_not_in_class_by_class_id(cursor, class_id):
-    # SQL query to find all quizzes that are not associated with the given class_id
     cursor.execute(
         """
         SELECT quiz_id, title
@@ -319,7 +284,6 @@ def get_quizzes_not_in_class_by_class_id(cursor, class_id):
 
 def fetch_answer_data(cursor, quiz_id):
     try:
-        # Define the SQL query
         sql_query = """
         SELECT 
             q.question_id,
@@ -339,13 +303,10 @@ def fetch_answer_data(cursor, quiz_id):
             q.quiz_id = ?
         """
 
-        # Execute the query with the provided quiz_id
         cursor.execute(sql_query, (quiz_id,))
 
-        # Fetch all the results
         results = cursor.fetchall()
 
-        # Return the results
         return results
     except Exception as e:
         print(f"Error fetching quiz data: {e}")
@@ -353,7 +314,6 @@ def fetch_answer_data(cursor, quiz_id):
 
 
 def get_history(cursor, user_id):
-    # Fetch all the quiz history for the user
     result_query = """
         SELECT 
             qr.run_id,
@@ -387,7 +347,6 @@ def get_history(cursor, user_id):
         result = []
         return result
 
-    # Process the data into the required format
     history = {}
     for row in rows:
         (
@@ -404,23 +363,18 @@ def get_history(cursor, user_id):
             answer_option_text,
         ) = row
 
-        dt_object = datetime.strptime(created_at, "%Y-%m-%d %H:%M:%S.%f")
-
-        # Create a run entry if it doesn't exist
         if run_id not in history:
             history[run_id] = {
                 "RunID": run_id,
-                "created_at": dt_object.strftime("%Y-%m-%d"),
+                "created_at": created_at,
                 "correct_answers": correct_percentage,
                 "quiz_id": quiz_id,
                 "quiz_title": quiz_title,
                 "Answers": [],
             }
 
-        # Determine if the answer was correct
         is_correct = input_option_id == answer_option_id
 
-        # Add the question details
         history[run_id]["Answers"].append(
             {
                 "correct": is_correct,
@@ -439,7 +393,6 @@ def get_history(cursor, user_id):
 
 def get_quiz_results(cursor, from_date, to_date, class_id, quiz_id):
     try:
-        # Define the SQL query
         sql_query = """
         select 
             q.title, 
@@ -460,19 +413,16 @@ def get_quiz_results(cursor, from_date, to_date, class_id, quiz_id):
                 qr.run_id
         """
 
-        # Execute the query with the provided quiz_id
         cursor.execute(sql_query, (from_date, to_date, class_id, quiz_id))
 
-        # Fetch all the results
         rows = cursor.fetchall()
 
         chart_data = {"label": None, "data": [], "labels": None, "Status": True}
 
-        # Check if rows are empty
+        # Return an object with status false for error handling in frontend
         if not rows:
             return {"Status": False}
 
-        # Iterate over the rows and calculate step counts
         for row in rows:
             title, correct_percentage, run_id, steps = row
 
@@ -489,7 +439,6 @@ def get_quiz_results(cursor, from_date, to_date, class_id, quiz_id):
             idx = int(round(correct_percentage / step_value, 0))
             chart_data["data"][idx] += 1
 
-        # chart_data["data"] = step_counts
         return chart_data
     except Exception as e:
         print(f"Error fetching history data: {e}")
@@ -498,7 +447,6 @@ def get_quiz_results(cursor, from_date, to_date, class_id, quiz_id):
 
 def get_quiz_results_base(cursor):
     try:
-        # Define the SQL query
         sql_query = """
         select 
             c.class_name,
@@ -514,21 +462,16 @@ def get_quiz_results_base(cursor):
         order by c.class_name, q.title, c.id, q.quiz_id DESC
         """
 
-        # Execute the query
         cursor.execute(sql_query)
 
-        # Fetch all the results
         rows = cursor.fetchall()
 
         if not rows:
             return {"classes": []}
 
-        # Process the data into the required format
         base_data = {"classes": []}
 
-        # Loop through rows and populate classes and their quizzes
         for class_name, class_id, quiz_title, quiz_id in rows:
-            # Find or add the class
             class_entry = next(
                 (cls for cls in base_data["classes"] if cls["value"] == class_id),
                 None,
@@ -537,7 +480,6 @@ def get_quiz_results_base(cursor):
                 class_entry = {"title": class_name, "value": class_id, "quizzes": []}
                 base_data["classes"].append(class_entry)
 
-            # Add quiz to the current class if not already present
             if not any(quiz["value"] == quiz_id for quiz in class_entry["quizzes"]):
                 class_entry["quizzes"].append({"title": quiz_title, "value": quiz_id})
 

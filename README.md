@@ -241,6 +241,8 @@ Die Applikation verwendet eine sqlite Datenbank. Diese wird beim starten der App
 ### 4.2 Frontend
 Für das Frontend wurde vue.js/vuetify verwendet: https://vuetifyjs.com/en/
 
+Für das state management wurde Pinia gebraucht.
+
 Info: Sollte das Frontend geändert werden, dann muss es neu erstellt werden (npm run build). Die Files werden vom Backend aus dem frontend/dist Ordner genommen.
 
 Achtung: Die verschiedenen Ansichten werden mittels vue.js route-guard gesichert. Eine Backend sicherung besteht nicht. 

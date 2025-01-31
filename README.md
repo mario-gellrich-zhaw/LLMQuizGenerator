@@ -31,6 +31,7 @@ Der Quizgenerator hilft Studierenden, ihre Kenntnisse in gewünschten Fachgebiet
         <img width="647" alt="startpage:logiin" src="https://github.com/user-attachments/assets/d1a2a9bd-bc18-42bf-9c20-8306d759ad74" />
         <summary>Registrieren:</summary>
         <img width="1002" alt="register" src="https://github.com/user-attachments/assets/83004e84-c897-498d-9b2a-f3dd61f650cc" />
+        Default: keiner Klasse zugeteilt.
         <summary>Fehler bei Registration:</summary>
         <img width="998" alt="fehler bei registration" src="https://github.com/user-attachments/assets/27917309-7772-4202-b92d-53bed26d1bc9" />
         <summary>Login mit neuem Account:</summary>
@@ -111,6 +112,7 @@ Der Quizgenerator hilft Studierenden, ihre Kenntnisse in gewünschten Fachgebiet
       <details>
         <summary>Übersicht & Bearbeitung bestehender Quizzes</summary>
         <img width="1433" alt="Bildschirmfoto 2025-01-31 um 17 01 19" src="https://github.com/user-attachments/assets/ff65f942-7e0f-4f5e-a48e-91be9c7f3ccc" />
+        Info: Nur Quizzes die publiziert sind, können auch ausgeführt werden.
         <summary>Einzelne Fragen analysieren</summary>
         <img width="1433" alt="Bildschirmfoto 2025-01-31 um 17 01 30" src="https://github.com/user-attachments/assets/ab76328b-0cdf-4009-bf84-6da3b0b665f4" />
         <summary>Quiz und/oder einzelne Fragen bearbeiten</summary>
@@ -125,6 +127,7 @@ Der Quizgenerator hilft Studierenden, ihre Kenntnisse in gewünschten Fachgebiet
       <details>
         <summary>Klassen erstellen und zuteilen</summary>
         <img width="1476" alt="Bildschirmfoto 2025-01-31 um 17 03 20" src="https://github.com/user-attachments/assets/2d173762-1ea8-4675-bf15-63bb229df2a4" />
+        Info: Klassen können nur gelöscht werden, wenn es keine Studenten zugeteilt hat.
         <summary>Klassen erstellen</summary>
         <img width="1484" alt="Bildschirmfoto 2025-01-31 um 17 03 30" src="https://github.com/user-attachments/assets/f58dcfba-bc53-4335-a7b2-6f7f00c2613b" />
         <summary>Quizzes und/oder Studenten zuteilen</summary>

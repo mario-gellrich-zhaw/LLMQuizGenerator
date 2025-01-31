@@ -1,5 +1,4 @@
 backend/database/database.db
 .env
-!backend/database/
-
 _pycache_
+functions/_pycache_

@@ -232,7 +232,25 @@ INSERT INTO users (username, password, role, class_id, last_active)
 ```
 ---
 
-## 4. Kontakt
+## 4. Technische Umsetzung
+### 4.1 Data Model
+Die Applikation verwendet eine sqlite Datenbank. Diese wird beim starten der App erstellt, falls nicht vorhanden.
+<img width="842" alt="erd" src="https://github.com/user-attachments/assets/9e1d71b5-8351-48eb-8015-74f730200d8c" />
+
+### 4.2 Frontend
+Für das Frontend wurde vue.js/vuetify verwendet: https://vuetifyjs.com/en/
+
+Info: Sollte das Frontend geändert werden, dann muss es neu erstellt werden (npm run build). Die Files werden vom Backend aus dem frontend/dist Ordner genommen.
+
+Achtung: Die verschiedenen Ansichten werden mittels vue.js route-guard gesichert. Eine Backend sicherung besteht nicht. 
+### 4.3 Backend
+Das Backend besteht aus einem Flask server, der die API endpoints bereitstellt.
+#### Prompt generierung
+Die Grundstruktur für die Prompt ist im Ordner: backend/prompt/ChatGPT_prompt.txt
+
+Die Prompt enthält Platzhalter, die vor dem Senden mit den Inputs aus dem Frontend überschrieben werden. Um die Logik zu ändern, müssen das File und der API Endpoint "@app.route("/sendPrompt", methods=["POST"])" in app.py angepasst werden. Ebenfalls in diesem Endpoint kann das ChatGPT Modell angepasst werden. Zurzeit wird gpt-4o-mini verwendet.
+
+## 5. Kontakt
 
 Bei Fragen oder Feedback wenden Sie sich bitte an:
 

@@ -55,9 +55,12 @@ app = Flask(__name__, static_folder="frontend/dist", static_url_path="")
 @app.route("/")
 def index():
     return send_from_directory(os.path.join(app.static_folder), "index.html")
-@app.route("/<path:path>")
-def serve_static(path):
-    return send_from_directory(os.path.join(app.static_folder), path)
+
+@app.errorhandler(404)
+
+def not_found(e):
+    return send_from_directory(os.path.join(app.static_folder), "index.html")
+
 CORS(app)
 
 # Load environment variables from a .env file

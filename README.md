@@ -231,6 +231,8 @@ INSERT INTO users (username, password, role, class_id, last_active)
 ("max", "max", 2, 2, None)
 ("peter", "peter", 2, 2, None)
 ```
+
+Weitere Testdaten sind im Ordner: backend/sql
 ---
 
 ## 4. Technische Umsetzung

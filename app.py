@@ -441,12 +441,15 @@ def register():
 
         if new_user:
             user = {
-                "name": new_user[1],  # username
+                "id":new_user[0],
+                "username": new_user[1],  # username
                 "role": new_user[2],  # role
+                "class_id":new_user[3],
+                "last_active":None,
             }
 
             return (
-                jsonify({"message": "User registered successfully", "user": user}),
+                jsonify(user),
                 201,
             )
 

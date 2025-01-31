@@ -2,3 +2,6 @@ backend/database/database.db
 .env
 __pycache__/*
 backend/functions/__pycache__/*
+backend/upload_images/*.jpg
+backend/upload_images/*.png
+backend/upload_images/*.jpeg

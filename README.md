@@ -9,7 +9,8 @@ Der **LLM-basierte Quizgenerator** ist eine innovative Lösung für Lehrpersonen
 1. [🔧💡 Funktionen für Studierende](#1-funktionen-für-studierende)
 2. [📈📚 Funktionen für Lehrpersonen](#2-funktionen-für-lehrpersonen)
 3. [⚙️🏠 Set-Up](#3-set-up)
-4. [📢💬 Kontakt](#4-kontakt)
+4. [⚙️🏠 Technische Umsetzung](#4-technische-umsetzung)
+5. [📢💬 Kontakt](#5-kontakt)
 
 ---
 
@@ -243,12 +244,53 @@ Für das Frontend wurde vue.js/vuetify verwendet: https://vuetifyjs.com/en/
 Info: Sollte das Frontend geändert werden, dann muss es neu erstellt werden (npm run build). Die Files werden vom Backend aus dem frontend/dist Ordner genommen.
 
 Achtung: Die verschiedenen Ansichten werden mittels vue.js route-guard gesichert. Eine Backend sicherung besteht nicht. 
+```javascript
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore();
+  const loggedIn = userStore.isLoggedIn(); // Check if the user is logged in
+  const role = userStore.getUser().role; // Check if the user is logged in
+  // If the user is not logged in and trying to access any route except the login page, redirect to the login page
+  if (!loggedIn && to.path == "/login") {
+    next(); // Redirect to the login page
+  } else if (!loggedIn && to.path !== "/login") {
+    next("/login");
+  } else if (role !== 1 && to.path !== "/run") {
+    next("/run");
+  } else {
+    next();
+  }
+});
+```
 ### 4.3 Backend
 Das Backend besteht aus einem Flask server, der die API endpoints bereitstellt.
 #### Prompt generierung
 Die Grundstruktur für die Prompt ist im Ordner: backend/prompt/ChatGPT_prompt.txt
+```
+Create [qTopics] 'multiple choice single answer' questions for each topic listed below.
+In total there must be [qTotal] questions.
+...
+```
+Die Prompt enthält Platzhalter, die vor dem Senden mit den Inputs aus dem Frontend überschrieben werden. Um die Logik zu ändern, müssen das File und der API Endpoint "@app.route("/sendPrompt", methods=["POST"])" in app.py angepasst werden. 
+```python
+# Replace the placeholders with the corresponding frontend values
+prompt = prompt_template.replace("[qTopics]", str(q_topics))
+prompt = prompt.replace("[qTotal]", str(total_questions))
+prompt = prompt.replace("[qOptions]", str(options))
+prompt = prompt.replace("[qDiffFrom]", str(diff_from))
+prompt = prompt.replace("[qDiffTo]", str(diff_to))
+```
+Ebenfalls in diesem Endpoint kann das ChatGPT Modell angepasst werden. Zurzeit wird gpt-4o-mini verwendet.
+```python
+response = OpenAI(
+  api_key=(OPENAI_API_KEY),  # This is the default and can be omitted
+)
 
-Die Prompt enthält Platzhalter, die vor dem Senden mit den Inputs aus dem Frontend überschrieben werden. Um die Logik zu ändern, müssen das File und der API Endpoint "@app.route("/sendPrompt", methods=["POST"])" in app.py angepasst werden. Ebenfalls in diesem Endpoint kann das ChatGPT Modell angepasst werden. Zurzeit wird gpt-4o-mini verwendet.
+chat_completion = response.chat.completions.create(
+  messages=[{"role": "user", "content": prompt}],
+  model="gpt-4o-mini",
+  max_tokens=3000,
+)
+```
 
 ## 5. Kontakt
 

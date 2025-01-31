@@ -17,7 +17,7 @@ onMounted(async () => {
   // If quizzes are already in the store, no need to fetch them again
   if (quizzesStore.quizzes.length === 0) {
     try {
-      const response = await fetch("http://localhost:5000/getAllQuizzes", {
+      const response = await fetch("/getAllQuizzes", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

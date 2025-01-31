@@ -63,7 +63,7 @@
               <v-row>
                 <v-col cols="12" class="w-100">
                   <v-img
-                    :src="'http://localhost:5000' + question.image_url"
+                    :src="'' + question.image_url"
                     max-height="400"
                     width="100%"
                   ></v-img
@@ -204,16 +204,13 @@ const saveDialog = async () => {
 
   try {
     // Try updating the quiz in the database
-    const response = await fetch(
-      `http://localhost:5000/updateQuiz/${props.quiz.quiz_id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedQuiz),
-      }
-    );
+    const response = await fetch(`/updateQuiz/${props.quiz.quiz_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedQuiz),
+    });
 
     if (!response.ok) {
       throw new Error("Failed to update quiz in the database");
@@ -229,7 +226,7 @@ const saveDialog = async () => {
         formData.append("image_file", question.image_file);
         formData.append("question_id", question.question_id);
 
-        fetch("http://localhost:5000/savePicture", {
+        fetch("/savePicture", {
           method: "POST",
           body: formData,
         })
@@ -273,18 +270,15 @@ const saveDialog = async () => {
 const publishQuiz = async (quiz_id) => {
   // Call the backend to update the status in the database
   try {
-    const response = await fetch(
-      `http://localhost:5000/updateQuizStatus/${quiz_id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          published: !quizzesStore.getQuizById(quiz_id).published, // Toggle the published status
-        }),
-      }
-    );
+    const response = await fetch(`/updateQuizStatus/${quiz_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        published: !quizzesStore.getQuizById(quiz_id).published, // Toggle the published status
+      }),
+    });
 
     if (!response.ok) {
       throw new Error("Failed to update quiz status");
@@ -305,15 +299,12 @@ const deleteQuiz = async () => {
   if (confirmation) {
     try {
       // Step 1: Call the backend to delete the quiz from the database
-      const response = await fetch(
-        `http://localhost:5000/deleteQuiz/${props.quiz.quiz_id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch(`/deleteQuiz/${props.quiz.quiz_id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Failed to delete quiz from the database");

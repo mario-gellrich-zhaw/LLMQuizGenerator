@@ -111,7 +111,7 @@ onMounted(async () => {
     if (quizzesStore.quizzes.length === 0) {
       try {
         const response = await fetch(
-          `http://localhost:5000/getAllQuizzesForRun?class_id=${userStore.user.class_id}`,
+          `/getAllQuizzesForRun?class_id=${userStore.user.class_id}`,
           {
             method: "GET",
             headers: {
@@ -140,7 +140,7 @@ onMounted(async () => {
   } else if (!userStore.user.class_id && userStore.user.role === 1) {
     // get all quizzes for admin roles
     try {
-      const response = await fetch("http://localhost:5000/getAllQuizzes", {
+      const response = await fetch("/getAllQuizzes", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -173,15 +173,12 @@ const run = (quiz) => {
 
 const getHistory = async () => {
   try {
-    const response = await fetch(
-      `http://localhost:5000/get_quiz_history/${userStore.user.id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`/get_quiz_history/${userStore.user.id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       const errorData = await response.json();

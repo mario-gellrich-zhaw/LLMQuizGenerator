@@ -253,6 +253,7 @@ def save_picture():
 
     try:
         # upload file
+        print("asdf")
         image_url = handle_file_upload(file, question_id)
         # Update the question's `image_url` in the database
 

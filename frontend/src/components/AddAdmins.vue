@@ -44,7 +44,7 @@ const emit = defineEmits(["updatedUser"]);
 // Function to handle role change
 const changeRole = async (userId, newRole) => {
   try {
-    const response = await fetch("http://localhost:5000/update_user_role", {
+    const response = await fetch("/update_user_role", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

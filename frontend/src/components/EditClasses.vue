@@ -179,7 +179,7 @@ export default {
       if (!classInput.value) return;
 
       try {
-        const response = await fetch("http://localhost:5000/add_class", {
+        const response = await fetch("/add_class", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -203,19 +203,16 @@ export default {
 
     const removeUserFromClass = async (classid, userid) => {
       try {
-        const response = await fetch(
-          "http://localhost:5000/add_user_to_class",
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              class_id: null,
-              user_id: userid,
-            }),
-          }
-        );
+        const response = await fetch("/add_user_to_class", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            class_id: null,
+            user_id: userid,
+          }),
+        });
 
         if (!response.ok) {
           const errorData = await response.json();
@@ -231,16 +228,13 @@ export default {
     const removeQuizFromClass = async (classid, quizid) => {
       try {
         // Make the API call to the backend to delete the quiz from the class
-        const response = await fetch(
-          "http://localhost:5000/deleteQuizFromClass",
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ class_id: classid, quiz_id: quizid }),
-          }
-        );
+        const response = await fetch("/deleteQuizFromClass", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ class_id: classid, quiz_id: quizid }),
+        });
 
         // If the response is successful, remove the quiz from the class in the store
         if (response.ok) {
@@ -262,7 +256,7 @@ export default {
 
     const deleteClass = async (classid) => {
       try {
-        const response = await fetch("http://localhost:5000/deleteClass", {
+        const response = await fetch("/deleteClass", {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

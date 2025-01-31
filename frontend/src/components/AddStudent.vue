@@ -96,7 +96,7 @@ export default {
     async getUsersNotInClass() {
       try {
         const response = await fetch(
-          `http://localhost:5000/get_all_users_for_class?class_id=${this.classId}`
+          `/get_all_users_for_class?class_id=${this.classId}`
         );
 
         if (!response.ok) {
@@ -114,19 +114,16 @@ export default {
     async addUserToClass(user) {
       try {
         // Step 1: Make the API call to add the user to the class
-        const response = await fetch(
-          "http://localhost:5000/add_user_to_class",
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              class_id: this.classId,
-              user_id: user.id,
-            }),
-          }
-        );
+        const response = await fetch("/add_user_to_class", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            class_id: this.classId,
+            user_id: user.id,
+          }),
+        });
 
         if (!response.ok) {
           const errorData = await response.json();

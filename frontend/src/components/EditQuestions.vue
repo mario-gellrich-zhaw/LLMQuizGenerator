@@ -67,7 +67,7 @@
             <v-row v-if="question.image_url">
               <v-col cols="12" class="w-100">
                 <v-img
-                  :src="'http://localhost:5000' + question.image_url"
+                  :src="'' + question.image_url"
                   max-height="400"
                   width="100%"
                 ></v-img

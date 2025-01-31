@@ -26,7 +26,7 @@ const handleUpdateUsers = (updatedUser) => {
 // Fetch the users from the API onMounted
 onMounted(async () => {
   try {
-    const response = await fetch("http://localhost:5000/get_all_users", {
+    const response = await fetch("/get_all_users", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

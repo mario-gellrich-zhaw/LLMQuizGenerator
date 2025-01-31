@@ -211,7 +211,7 @@ const finishQuiz = async () => {
       })),
     };
 
-    const response = await fetch("http://localhost:5000/validate_quiz", {
+    const response = await fetch("/validate_quiz", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

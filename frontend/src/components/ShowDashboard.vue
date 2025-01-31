@@ -55,7 +55,7 @@ export default {
 
     onMounted(async () => {
       try {
-        const response = await fetch("http://localhost:5000/get_results_base", {
+        const response = await fetch("/get_results_base", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -112,7 +112,7 @@ export default {
         try {
           // Make a GET request to the API
           const response = await fetch(
-            `http://localhost:5000/get_results?from=${fromDate.value}&to=${toDate.value}&class=${selectedClass.value}&quiz=${selectedQuiz.value}`,
+            `/get_results?from=${fromDate.value}&to=${toDate.value}&class=${selectedClass.value}&quiz=${selectedQuiz.value}`,
             {
               method: "GET",
               headers: {

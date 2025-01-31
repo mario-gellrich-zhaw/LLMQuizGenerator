@@ -132,7 +132,7 @@ const updateStore = () => {
 // Function to save questions to the backend
 const saveQuestions = async () => {
   try {
-    const response = await fetch("http://localhost:5000/saveQuestions", {
+    const response = await fetch("/saveQuestions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

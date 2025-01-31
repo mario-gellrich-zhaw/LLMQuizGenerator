@@ -1,30 +1,46 @@
 import os
 
 UPLOAD_FOLDER = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "upload_images"
+    os.path.dirname(os.path.abspath(__file__)), "../upload_images"
 )
 
 
 def update_question_image_url(conn, question_id, image_url):
     try:
-        with conn.cursor() as cur:
-            # Check if the question exists
-            cur.execute(
-                "SELECT question_id FROM questions WHERE question_id = ?",
-                (question_id,),
-            )
-            if cur.fetchone() is None:
-                raise ValueError(f"Question with ID {question_id} does not exist.")
+        # Create a cursor object manually
+        cur = conn.cursor()
 
-            # Update the image_url
-            cur.execute(
-                "UPDATE questions SET image_url = ? WHERE question_id = ?",
-                (image_url, question_id),
-            )
-            conn.commit()  # Commit the transaction
+        # Check if the question exists
+        cur.execute(
+            "SELECT question_id FROM questions WHERE question_id = ?",
+            (question_id,)
+        )
+        
+        if cur.fetchone() is None:
+            raise ValueError(f"Question with ID {question_id} does not exist.")
+        
+        # Update the image_url for the specified question
+        cur.execute(
+            "UPDATE questions SET image_url = ? WHERE question_id = ?",
+            (image_url, question_id)
+        )
+        
+        # Commit the transaction after the update
+        conn.commit()
+
+        # Close the cursor manually
+        cur.close()
+        
     except Exception as e:
-        conn.rollback()  # Rollback in case of an error
+        # If any error occurs, rollback the transaction to maintain database integrity
+        conn.rollback()
+        
+        # Close the cursor in case of an error as well
+        cur.close()
+
+        # Re-raise the error to handle it at a higher level
         raise e
+
 
 
 def delete_image(url):

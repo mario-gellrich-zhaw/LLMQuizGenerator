@@ -96,7 +96,7 @@ export default {
     async getQuizzesNotInClass() {
       try {
         const response = await fetch(
-          `http://localhost:5000/get_all_quizzes_for_class?class_id=${this.classId}`
+          `/get_all_quizzes_for_class?class_id=${this.classId}`
         );
 
         if (!response.ok) {
@@ -114,19 +114,16 @@ export default {
     async addQuizToClass(quiz) {
       try {
         // Make the API call to add the quiz to the class
-        const response = await fetch(
-          "http://localhost:5000/add_quiz_to_class",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              class_id: this.classId,
-              quiz_id: quiz.quiz_id,
-            }),
-          }
-        );
+        const response = await fetch("/add_quiz_to_class", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            class_id: this.classId,
+            quiz_id: quiz.quiz_id,
+          }),
+        });
 
         const result = await response.json();
 

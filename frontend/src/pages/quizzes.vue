@@ -43,7 +43,7 @@ onMounted(async () => {
     errorMessage.value = ""; // Reset error message
 
     try {
-      const response = await fetch("http://localhost:5000/getAllQuizzes", {
+      const response = await fetch("/getAllQuizzes", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

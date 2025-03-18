@@ -1,4 +1,4 @@
-# 🔠🎨 QuizGenerator: Interaktive Quizzes erstellen und lösen
+# 🔠🎨 QuizGenerator: Interaktive Quizzes erstellen and lösen
 
 Mit dem Aufkommen von Large Language Models (LLMs) hat sich die automatische Textgenerierung enorm verbessert. Dieses Projekt nutzt diese Technologie, um hochwertige Quizfragen zu diversen Themen wie zum Beispiel Python-Programmierung und Datenbankabfragen zu erstellen.
 
@@ -300,7 +300,7 @@ chat_completion = response.chat.completions.create(
 
 Bei Fragen oder Feedback wenden Sie sich bitte an:
 
-- **Projektleitung**: Mario Gellrich
+- **Projektleitung**: Dr. Mario Gellrich
 - **E-Mail**: mario.gellrich@zhaw.ch
 - **Projekt-Team**: Taulant Pireva, Nicolas Winet & Linus Schneeberger
 

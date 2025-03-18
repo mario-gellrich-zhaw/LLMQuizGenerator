@@ -307,15 +307,19 @@ def send_prompt():
             max_tokens=3000,
         )
 
+        # Remove markdown backticks and language identifiers
+        reply = chat_completion.choices[0].message.content
+        reply = re.sub(r'^```json|```$', '', reply.strip(), flags=re.MULTILINE).strip()
+
         return jsonify(
-            {"success": True, "reply": chat_completion.choices[0].message.content}
+            {"success": True, "reply": reply}
         )
 
     except Exception as e:
+        print(f"OpenAI API Error: {str(e)}")
         return jsonify(
-            {"message": f"Error reading the prompt file: {str(e)}", "status": "error"}
+            {"success": False, "error": str(e)}
         )
-
 
 @app.route("/deleteImage", methods=["DELETE"])
 def delete_image_endpoint():

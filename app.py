@@ -1,11 +1,12 @@
 import os
+import re
 from flask import Flask, jsonify, request, send_from_directory, abort
 from dotenv import load_dotenv
 from flask_cors import CORS
 from openai import OpenAI
 import bcrypt
 import sqlite3
-import re
+
 
 # helper functions
 from backend.functions.upload import handle_file_upload
@@ -316,10 +317,10 @@ def send_prompt():
         )
 
     except Exception as e:
-        print(f"OpenAI API Error: {str(e)}")
         return jsonify(
-            {"success": False, "error": str(e)}
+            {"message": f"Error reading the prompt file: {str(e)}", "status": "error"}
         )
+
 
 @app.route("/deleteImage", methods=["DELETE"])
 def delete_image_endpoint():

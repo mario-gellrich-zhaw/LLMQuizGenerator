@@ -307,14 +307,8 @@ def send_prompt():
             max_tokens=3000,
         )
 
-        # Get message content
-        reply = chat_completion.choices[0].message.content
-        
-        # Remove markdown backticks and language identifiers from the response
-        reply = re.sub(r'^```json|```$', '', reply.strip(), flags=re.MULTILINE).strip()
-
         return jsonify(
-            {"success": True, "reply": reply}
+            {"success": True, "reply": chat_completion.choices[0].message.content}
         )
 
     except Exception as e:

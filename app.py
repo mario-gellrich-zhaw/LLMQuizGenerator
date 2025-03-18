@@ -5,6 +5,7 @@ from flask_cors import CORS
 from openai import OpenAI
 import bcrypt
 import sqlite3
+import re
 
 # helper functions
 from backend.functions.upload import handle_file_upload
@@ -306,8 +307,14 @@ def send_prompt():
             max_tokens=3000,
         )
 
+        # Get message content
+        reply = chat_completion.choices[0].message.content
+        
+        # Remove markdown backticks and language identifiers
+        reply = re.sub(r'^```json|```$', '', reply.strip(), flags=re.MULTILINE).strip()
+
         return jsonify(
-            {"success": True, "reply": chat_completion.choices[0].message.content}
+            {"success": True, "reply": reply}
         )
 
     except Exception as e:

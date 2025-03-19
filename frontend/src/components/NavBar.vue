@@ -7,7 +7,7 @@
           v-if="loggedIn"
           prepend-icon="mdi-logout"
           variant="outlined"
-          color="red-lighten-3"
+          color="light-green-darken-1"
           block
           @click="logout"
         >

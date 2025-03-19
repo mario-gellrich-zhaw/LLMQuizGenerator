@@ -8,3 +8,16 @@
 // @use 'vuetify/settings' with (
 //   $color-pack: false
 // );
+
+// Uncomment and configure Vuetify’s settings
+@use 'vuetify/settings' with (
+  $color-pack: true, // enable custom color overrides
+  // For Vuetify 3, override the light theme primary color
+  $material-light-primary: greenyellow
+);
+
+// Optionally, if your button uses a custom class, you can also add:
+.logout-button {
+  background-color: greenyellow;
+  color: white; // or whatever text color you need
+}

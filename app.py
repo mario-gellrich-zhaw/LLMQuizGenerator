@@ -74,7 +74,6 @@ OPENAI_API_KEY = os.getenv("DS_PROJECT_KEY")
 # Path to prompt file
 PROMPT_FILE = "backend/prompt/ChatGPT_prompt.txt"
 
-
 @app.route("/getAllQuizzes", methods=["GET"])
 def get_all_quizzes():
     try:
